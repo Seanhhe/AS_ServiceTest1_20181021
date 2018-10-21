@@ -28,6 +28,32 @@ public class MainActivity extends AppCompatActivity {
 
         seekBar = findViewById(R.id.seekbar);
 
+        //使用seekBar跳轉歌曲
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
+
+    private void seekTo(int seekto) {
+        Intent intent = new Intent(this, MyService.class);
+        intent.putExtra("seekto", seekto);//發送=>後端MyService收
+        startService(intent);
     }
 
     @Override
